@@ -3,41 +3,70 @@ const pdf = require('pdf-creator-node');
 const path = require('path');
 const options = require('../helpers/options');
 const data = require('../helpers/data');
+const axios = require('axios')
 
 
 const homeview = (req, res, next) => {
     res.render('home');
 }
 
-const generatePdf = async (req, res, next) => {
-        const html = fs.readFileSync(path.join(__dirname, '../views/template.html'), 'utf-8');
-        const filename = Math.random() + '_doc' + '.pdf';
-        let array = [];
+const generatePdf = async (req, response, next) => {
+    
+    const html = fs.readFileSync(path.join(__dirname, '../views/template.html'), 'utf-8');
+    const filename = Math.random() + '_doc' + '.pdf';
+   
 
-        data.forEach(d => {
-            const prod = {
-                name: d.name,
-                description: d.description,
-                unit: d.unit,
-                quantity: d.quantity,
-                price: d.price,
-                total: d.quantity * d.price,
-                imgurl: d.imgurl
-            }
-            array.push(prod);
-        });
+        // data fetching
 
-        let subtotal = 0;
-        array.forEach(i => {
-            subtotal += i.total
+   let dataUser =  axios.get('http://localhost:1337/userfetches')
+    .then(res => {
+        console.log(res.data[0]); 
+        
+    
+        let activity = '';
+        data.forEach(i => {
+            activity = res.data[0].activityName
         });
-        const tax = (subtotal * 20) / 100;
-        const grandtotal = subtotal - tax;
+        let name = '';
+        data.forEach(i => {
+            name = res.data[0].name
+        });
+        let age = '';
+        data.forEach(i => {
+            age = res.data[0].age
+        });
+        let city = '';
+        data.forEach(i => {
+            city = res.data[0].city
+        });
+        let gender = '';
+        data.forEach(i => {
+            gender = res.data[0].gender
+        });
+        let score = '';
+        data.forEach(i => {
+            score = res.data[0].score
+        });
+        let grade = '';
+        data.forEach(i => {
+            grade = res.data[0].grade
+        });
+        let healthatt = '';
+        data.forEach(i => {
+            healthatt = res.data[0].healthAttributes
+        });
+        
         const obj = {
-            prodlist: array,
-            subtotal: subtotal,
-            tax: tax,
-            gtotal: grandtotal
+            
+            activity: activity,
+            score: score,
+            grade:grade,
+            name:name,
+            age:age,
+            city:city,
+            healthatt: healthatt,
+            gender:gender,
+            
         }
         const document = {
             html: html,
@@ -53,12 +82,18 @@ const generatePdf = async (req, res, next) => {
                 console.log(error);
             });
             const filepath = 'http://localhost:3000/docs/' + filename;
-
-            res.render('download', {
+    
+            response.render('download', {
                 path: filepath
-            });
+            });       
+    })
+    .then(res => 
+        {
+            
+        })
+    .catch(err => console.log(err))
+        
 }
-
 
 module.exports = {
     homeview,

@@ -4,7 +4,7 @@ module.exports = {
     border: '2mm',
     header: {
         height: '15mm',
-        contents: '<h4 style=" color: red;font-size:20;font-weight:800;text-align:center;">CUSTOMER INVOICE</h4>'
+        contents: '<h4 style=" color: blue;font-size:20;font-weight:800;text-align:center;">FITNESS REPORT</h4>'
     },
     footer: {
         height: '20mm',
