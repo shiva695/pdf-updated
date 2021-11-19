@@ -1,9 +1,17 @@
 const fs = require('fs');
 const pdf = require('pdf-creator-node');
+const http = require('http')
 const path = require('path');
 const options = require('../helpers/options');
 const data = require('../helpers/data');
 const axios = require('axios')
+const express =  require('express')
+
+
+
+const app = express();
+app.use(express.urlencoded({extended: false}));
+app.use(express.json())
 
 
 const homeview = (req, res, next) => {
@@ -14,13 +22,15 @@ const generatePdf = async (req, response, next) => {
     
     const html = fs.readFileSync(path.join(__dirname, '../views/template.html'), 'utf-8');
     const filename = Math.random() + '_doc' + '.pdf';
-   
+    
+
+
 
         // data fetching
 
-   let dataUser =  axios.get('http://localhost:1337/userfetches')
+   let dataUser =  axios.post('http://localhost:1337/userfetches')
     .then(res => {
-        console.log(res.data[0]); 
+        
         
     
         let activity = '';
@@ -84,18 +94,32 @@ const generatePdf = async (req, response, next) => {
             const filepath = 'http://localhost:3000/docs/' + filename;
     
             response.render('download', {
-                path: filepath
+                
+                path: filepath,
+                
+      
+
+                
             });       
     })
-    .then(res => 
-        {
-            
-        })
     .catch(err => console.log(err))
+
+
+    
+
+
+
+  
         
 }
 
+
+
+
+ 
+
 module.exports = {
     homeview,
-    generatePdf
+    generatePdf,
+    
 }
