@@ -96,9 +96,8 @@ router.post('/server', function (req, res) {
                 var stat = fs.statSync(result.filename);
                 res.setHeader('Content-Length', stat.size);
                 res.setHeader('Content-Type', 'application/pdf');
-                res.setHeader('Content-Disposition', 'attachment;', filename);
+                res.setHeader('Content-Disposition', `attachment; filename = ${filename}`);
                 file.pipe(res);
-
             }).catch(error => {
                 console.log(error);
             });

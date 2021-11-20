@@ -28,81 +28,81 @@ const generatePdf = async (req, response, next) => {
 
         // data fetching
 
-   let dataUser =  axios.post('http://localhost:1337/userfetches')
-    .then(res => {
+//    let dataUser =  axios.post('http://localhost:1337/userfetches')
+//     .then(res => {
         
         
     
-        let activity = '';
-        data.forEach(i => {
-            activity = res.data[0].activityName
-        });
-        let name = '';
-        data.forEach(i => {
-            name = res.data[0].name
-        });
-        let age = '';
-        data.forEach(i => {
-            age = res.data[0].age
-        });
-        let city = '';
-        data.forEach(i => {
-            city = res.data[0].city
-        });
-        let gender = '';
-        data.forEach(i => {
-            gender = res.data[0].gender
-        });
-        let score = '';
-        data.forEach(i => {
-            score = res.data[0].score
-        });
-        let grade = '';
-        data.forEach(i => {
-            grade = res.data[0].grade
-        });
-        let healthatt = '';
-        data.forEach(i => {
-            healthatt = res.data[0].healthAttributes
-        });
+//         let activity = '';
+//         data.forEach(i => {
+//             activity = res.data[0].activityName
+//         });
+//         let name = '';
+//         data.forEach(i => {
+//             name = res.data[0].name
+//         });
+//         let age = '';
+//         data.forEach(i => {
+//             age = res.data[0].age
+//         });
+//         let city = '';
+//         data.forEach(i => {
+//             city = res.data[0].city
+//         });
+//         let gender = '';
+//         data.forEach(i => {
+//             gender = res.data[0].gender
+//         });
+//         let score = '';
+//         data.forEach(i => {
+//             score = res.data[0].score
+//         });
+//         let grade = '';
+//         data.forEach(i => {
+//             grade = res.data[0].grade
+//         });
+//         let healthatt = '';
+//         data.forEach(i => {
+//             healthatt = res.data[0].healthAttributes
+//         });
         
-        const obj = {
+//         const obj = {
             
-            activity: activity,
-            score: score,
-            grade:grade,
-            name:name,
-            age:age,
-            city:city,
-            healthatt: healthatt,
-            gender:gender,
+//             activity: activity,
+//             score: score,
+//             grade:grade,
+//             name:name,
+//             age:age,
+//             city:city,
+//             healthatt: healthatt,
+//             gender:gender,
             
-        }
-        const document = {
-            html: html,
-            data: {
-                products: obj
-            },
-            path: './docs/' + filename
-        }
-        pdf.create(document, options)
-            .then(res => {
-                console.log(res);
-            }).catch(error => {
-                console.log(error);
-            });
-            const filepath = 'http://localhost:3000/docs/' + filename;
+//         }
+//         const document = {
+//             html: html,
+//             data: {
+//                 products: obj
+//             },
+//             path: './docs/' + filename
+//         }
+//         pdf.create(document, options)
+//             .then(res => {
+//                 console.log(res);
+//             }).catch(error => {
+//                 console.log(error);
+//             });
+//             const filepath = 'http://localhost:3000/docs/' + filename;
     
-            response.render('download', {
+//             response.render('download', {
                 
-                path: filepath,
+//                 path: filepath,
                 
       
 
                 
-            });       
-    })
-    .catch(err => console.log(err))
+//             });       
+//     })
+//     .catch(err => console.log(err))
 
 
     
