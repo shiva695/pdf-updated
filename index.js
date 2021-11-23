@@ -1,10 +1,12 @@
 const express = require('express');
 const fs = require('fs');
+const moment = require('moment')
 const pdf = require('pdf-creator-node');
 const options = require('./helpers/options');
 const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
 const homeRoutes = require('./routes/home-routes');
+const data = require('./helpers/data');
 const router = express.Router();
 
 
@@ -40,9 +42,11 @@ router.post('/server', function (req, res) {
    //res.json({msg : "FILE DOWNLOADED FROM THE SERVER"})  
 
     
-   
+   const d = new Date();
+   const date = (d.getFullYear()+ '_'+d.getMonth()+'_'+d.getDate()+'_'+d.getHours()+':'+ d.getMinutes() + ':' + d.getSeconds())
+
     const html = fs.readFileSync(path.join(__dirname, 'views/template.html'), 'utf-8');
-    const filename = req.body.name + '.pdf';
+    const filename = req.body.name+ '_' + date +'.pdf';
        
         let activity = '';
             activity = (req.body.activity_name)
@@ -84,38 +88,23 @@ router.post('/server', function (req, res) {
         pdf.create(document, options)
             .then(result => {
                 console.log(result);
-                //res.setHeader('Content-type', 'application/pdf');
-                // stream.pipe(res);
-                // const filepath = './docs/' + filename;
-                // console.log("FILEPATH" + result.filename);
-                // var data = fs.createReadStream(result.filename);
-                // res.setHeader('Content-Type', 'application/pdf');
+               
+                // let timestamp = new Date();
+                // console.log(timestamp);
+
                 
-                // res.send(data);
                 var file = fs.createReadStream(result.filename);
                 var stat = fs.statSync(result.filename);
                 res.setHeader('Content-Length', stat.size);
                 res.setHeader('Content-Type', 'application/pdf');
-                res.setHeader('Content-Disposition', 'attachment;', filename);
+                res.setHeader('Content-Disposition', `attachment;filename= ${filename}`);
                 file.pipe(res);
 
             }).catch(error => {
                 console.log(error);
             });
 
-            // res.send(req.body);
-    
-            // res.render({
-                
-            //     path: filepath,
-            // });
             
-            // var file = fs.createReadStream(filepath);
-            // var stat = fs.statSync(filepath);
-            // res.setHeader('Content-Length', stat.size);
-            // res.setHeader('Content-Type', 'application/pdf');
-            // res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
-            // file.pipe(res);
 
             
    } )

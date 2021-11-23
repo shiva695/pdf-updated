@@ -1,10 +1,10 @@
 module.exports = {
-    formate: 'A3',
+    format: 'A4',
     orientation: 'portrait',
-    border: '2mm',
+    border: '5mm',
     header: {
         height: '15mm',
-        contents: '<h4 style=" color: blue;font-size:20;font-weight:800;text-align:center;">FITNESS REPORT</h4>'
+        contents: '<h4 style=" color: blue;font-size:20;font-weight:800;text-align:center;">Assessment Report</h4>'
     },
     footer: {
         height: '20mm',
