@@ -3,8 +3,8 @@ module.exports = {
     orientation: 'portrait',
     border: '5mm',
     header: {
-        height: '12mm',
-        contents: '<h4 style=" color: blue;font-size:20;font-weight:800;text-align:center;">Assessment Report</h4>'
+        height: '15mm',
+        contents: '<h4 style=" color: blue;font-size:20;font-weight:800;text-align:center;">Assessment Reports</h4>'
     },
     footer: {
         height: '20mm',
